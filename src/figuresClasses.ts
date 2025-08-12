@@ -13,15 +13,25 @@ export class Triangle implements Figure {
     public b: number,
     public c: number,
   ) {
-    if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('wrong data');
+    if (a <= 0) {
+      throw new Error(`Side a must be greater than 0`);
+    }
+
+    if (b <= 0) {
+      throw new Error(`Side b must be greater than 0`);
+    }
+
+    if (c <= 0) {
+      throw new Error(`Side c must be greater than 0`);
     }
 
     const maxSide = Math.max(a, b, c);
     const sumWithoutMax = a + b + c - maxSide;
 
     if (maxSide >= sumWithoutMax) {
-      throw new Error('wrong data');
+      throw new Error(
+        `Sides a=${a}, b=${b}, c=${c} can't form a valid triangle`,
+      );
     }
 
     this.shape = 'triangle';
@@ -31,7 +41,7 @@ export class Triangle implements Figure {
     const p = (this.a + this.b + this.c) / 2;
 
     return (
-      Math.round(
+      Math.floor(
         Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)) * 100,
       ) / 100
     );
@@ -46,7 +56,7 @@ export class Circle implements Figure {
     public radius: number,
   ) {
     if (radius <= 0) {
-      throw new Error('wrong data');
+      throw new Error(`Radius must be greater than 0`);
     }
     this.shape = 'circle';
   }
@@ -64,15 +74,18 @@ export class Rectangle implements Figure {
     public width: number,
     public height: number,
   ) {
-    if (width <= 0 || height <= 0) {
-      throw new Error('wrong data');
+    if (width <= 0) {
+      throw new Error(`Width must be greater than 0`);
     }
 
+    if (height <= 0) {
+      throw new Error(`Height must be greater than 0`);
+    }
     this.shape = 'rectangle';
   }
 
   getArea(): number {
-    return Math.round(this.width * this.height * 100) / 100;
+    return Math.floor(this.width * this.height * 100) / 100;
   }
 }
 
